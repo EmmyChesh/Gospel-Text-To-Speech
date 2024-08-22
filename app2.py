@@ -13,10 +13,10 @@ import re
 if not os.path.exists("temp"):
     os.mkdir("temp")
 
-# Set up Streamlit page configuration
+# Streamlit page configuration
 st.set_page_config(page_title="Gospel Text-to-Speech By EmmyChesh", page_icon="✝️")
 
-# Add custom CSS styling for a Christian theme
+# Custom CSS styling
 st.markdown("""
     <style>
     .main {
@@ -78,7 +78,7 @@ def text_to_speech(input_language, output_language, text, tld):
     trans_text = translation.text
     tts = gTTS(trans_text, lang=output_language, tld=tld, slow=False)
     
-    # Sanitize the file name by removing or replacing invalid characters
+    # removing or replacing invalid characters
     my_file_name = re.sub(r'[\\/*?:"<>|\n\r]', "", text[:20]) if text else "audio"
     
     file_path = f"temp/{my_file_name}.mp3"
@@ -91,7 +91,7 @@ def text_to_speech(input_language, output_language, text, tld):
 
     return my_file_name, trans_text
 
-# Default values for languages
+# Default languages
 input_language = "en"
 output_language = "en"
 
@@ -224,7 +224,7 @@ if st.button("Convert", key="convert_button"):
                 st.markdown("## Output text:")
                 st.write(output_text)
 
-            # Move the download button inside the convert block
+            # download button inside the convert block
             st.markdown("### Share your gospel message:")
             st.download_button("Download Audio", audio_bytes, file_name=f"{result}.mp3")
             st.markdown(f"[Share on WhatsApp](https://api.whatsapp.com/send?text={output_text})", unsafe_allow_html=True)
